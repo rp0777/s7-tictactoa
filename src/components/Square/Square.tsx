@@ -36,7 +36,6 @@ type SquareProps = {
 const Square: React.FC<SquareProps> = ({
   id,
   gameState,
-  currentElement,
   currentPlayer,
   setCurrentPlayer,
   setGameState,
