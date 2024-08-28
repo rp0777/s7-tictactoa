@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const circleSvg = (
   <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -31,6 +31,7 @@ type SquareProps = {
   currentPlayer: "circle" | "cross";
   setCurrentPlayer: React.Dispatch<React.SetStateAction<"circle" | "cross">>;
   setGameState: React.Dispatch<React.SetStateAction<(string | number)[][]>>;
+  gameOver: boolean;
 };
 
 const Square: React.FC<SquareProps> = ({
@@ -39,11 +40,12 @@ const Square: React.FC<SquareProps> = ({
   currentPlayer,
   setCurrentPlayer,
   setGameState,
+  gameOver,
 }) => {
   const [icon, setIcon] = useState<JSX.Element | null>(null);
 
   const clickOnSquare = () => {
-    if (!icon) {
+    if (!icon && !gameOver) {
       const row = Math.floor((id - 1) / 3);
       const col = (id - 1) % 3;
 
@@ -59,6 +61,12 @@ const Square: React.FC<SquareProps> = ({
       }
     }
   };
+
+  useEffect(() => {
+    if (gameOver) {
+      setIcon(null); // Reset the icon when the game is reset
+    }
+  }, [gameOver]);
 
   return (
     <div

@@ -21,10 +21,8 @@ const winningConditions = [
 
 const App = () => {
   const [gameState, setGameState] = useState<(string | number)[][]>(renderFrom);
-  const [currentPlayer, setCurrentPlayer] = useState<"circle" | "cross">(
-    "circle"
-  );
-  const [, setGameOver] = useState(false);
+  const [currentPlayer, setCurrentPlayer] = useState<"circle" | "cross">("circle");
+  const [gameOver, setGameOver] = useState(false);
 
   const checkWin = (gameState: (string | number)[][]) => {
     const flattenedState = gameState.flat();
@@ -41,7 +39,7 @@ const App = () => {
   };
 
   const checkDraw = (gameState: (string | number)[][]) => {
-    return gameState.flat().every(cell => typeof cell === "string");
+    return gameState.flat().every((cell) => typeof cell === "string");
   };
 
   useEffect(() => {
@@ -69,8 +67,8 @@ const App = () => {
   }, [gameState]);
 
   const resetGame = () => {
-    setGameState(renderFrom);
-    setCurrentPlayer("circle");
+    setGameState(renderFrom);  // Resetting the game state
+    setCurrentPlayer("circle");  // Resetting to the initial player
     setGameOver(false);
   };
 
@@ -98,6 +96,7 @@ const App = () => {
             currentPlayer={currentPlayer}
             setCurrentPlayer={setCurrentPlayer}
             setGameState={setGameState}
+            gameOver={gameOver}  // Pass gameOver to Square component
           />
         ))}
       </div>
